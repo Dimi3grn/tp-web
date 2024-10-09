@@ -35,7 +35,9 @@ func main() {
 		temp.ExecuteTemplate(w, "Promo", PageData)
 
 	})
-	fileServer := http.FileServer(http.Dir("./assets"))
+	fileServer := http.FileServer(http.Dir("./challenge1/assets/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
+	fileServerStyles := http.FileServer(http.Dir("./challenge1/styles"))
+	http.Handle("/styles/", http.StripPrefix("/styles/", fileServerStyles))
 	http.ListenAndServe("localhost:8000", nil)
 }
