@@ -1,0 +1,24 @@
+{{define "Promo"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> {{.Classe}} </h1>
+    <h2> {{.Filliere}} </h2>
+    <h2> {{.Niveau}} </h2>
+    <h2> {{.NombreEtudiants}} </h2>
+    {{range .Etudiants}}
+    {{if .Sexe}}
+    <p>{{.Nom}} {{.Prenom}} {{.Age}} <img src="/static/Homme.png" alt="Sexe Homme"></p>
+    {{else}}
+    <p>{{.Nom}} {{.Prenom}} {{.Age}} <img src="/static/Femme.png" alt="Sexe Femme"></p>
+    {{end}}
+    {{end}}
+    
+</body>
+</html>
+{{end}}
