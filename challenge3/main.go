@@ -7,6 +7,28 @@ import (
 	"text/template"
 )
 
+type PagePromo struct {
+	Classe          string
+	Filliere        string
+	Niveau          string
+	NombreEtudiants int
+	Etudiants       []Etudiant
+}
+
+type Etudiant struct {
+	Nom    string
+	Prenom string
+	Age    int
+	Sexe   bool //true := homme
+}
+
+type PageChange struct {
+	Vues      int
+	Condition bool
+}
+
+var ChangeData PageChange
+
 type PageInfo struct {
 	nom    string
 	prenom string
@@ -14,7 +36,7 @@ type PageInfo struct {
 	sexe   string
 }
 
-var PageData PageInfo
+var FormData PageInfo
 
 func main() {
 	temp, err := template.ParseGlob("./challenge3/template/*.html")
@@ -23,11 +45,31 @@ func main() {
 		fmt.Println(fmt.Sprint("erreur %s", err.Error()))
 		return
 	}
+
+	http.HandleFunc("/promo", func(w http.ResponseWriter, r *http.Request) {
+		ListeEtudiants := []Etudiant{{"Gourrin", "Dimitri", 17, true}, {"Xerli", "Chinois", 152, false}}
+
+		PageData := PagePromo{"B1 Informatique", "Informatique", " Bachelor 1", len(ListeEtudiants), ListeEtudiants}
+		temp.ExecuteTemplate(w, "Promo", PageData)
+
+	})
+
+	http.HandleFunc("/change", func(w http.ResponseWriter, r *http.Request) {
+		ChangeData.Vues++
+		if ChangeData.Vues%2 == 0 {
+			ChangeData.Condition = false
+		} else {
+			ChangeData.Condition = true
+		}
+		temp.ExecuteTemplate(w, "Change", ChangeData)
+	})
+
 	http.HandleFunc("/user/form", func(w http.ResponseWriter, r *http.Request) {
 		temp.ExecuteTemplate(w, "Form", nil)
 	})
 
 	http.HandleFunc("/user/treatment", func(w http.ResponseWriter, r *http.Request) {
+
 		var checkValue bool
 		checkValue, _ = regexp.MatchString(`^[A-Za-z]{1,32}$`, r.FormValue("nom"))
 		if !checkValue {
@@ -45,13 +87,13 @@ func main() {
 			return
 		}
 
-		PageData.nom = r.FormValue("nom")
-		PageData.prenom = r.FormValue("prenom")
-		PageData.bday = r.FormValue("bday")
-		PageData.sexe = r.FormValue("sexe")
+		FormData.nom = r.FormValue("nom")
+		FormData.prenom = r.FormValue("prenom")
+		FormData.bday = r.FormValue("bday")
+		FormData.sexe = r.FormValue("sexe")
 		http.Redirect(w, r, "/user/display", http.StatusSeeOther)
 	})
-	type displayPage struct {
+	type displayPage struct { //sert a rien mais azy je me suis cassé le crane pour rien
 		Name   string
 		Prenom string
 		Bday   string
@@ -60,7 +102,7 @@ func main() {
 
 	http.HandleFunc("/user/display", func(w http.ResponseWriter, r *http.Request) {
 
-		displayData := displayPage{PageData.nom, PageData.prenom, PageData.bday, PageData.sexe}
+		displayData := displayPage{FormData.nom, FormData.prenom, FormData.bday, FormData.sexe}
 
 		temp.ExecuteTemplate(w, "Display", displayData)
 	})
@@ -70,7 +112,7 @@ func main() {
 		fmt.Fprintf(w, "Erreur %s - %s", code, message)
 	})
 
-	fileServer := http.FileServer(http.Dir("./challenge3/styles"))
+	fileServer := http.FileServer(http.Dir("./challenge3/assets"))
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
 	http.ListenAndServe("localhost:8000", nil)
 }
