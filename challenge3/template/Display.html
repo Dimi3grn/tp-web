@@ -1,0 +1,19 @@
+{{define "Display"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display</title>
+    <link rel="stylesheet" href="/static/displayStyle.css">
+</head>
+<body>
+    <div class="container">
+        <p>Votre Nom : {{.Name}} </p>
+        <p>Votre Prénom : {{.Prenom}} </p>
+        <p>Votre Âge : {{.Bday}} </p>
+        <p>Votre Sexe : {{.Sexe}} </p>
+    </div>
+</body>
+</html>
+{{end}}

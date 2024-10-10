@@ -29,15 +29,13 @@ func main() {
 		return
 	}
 	http.HandleFunc("/promo", func(w http.ResponseWriter, r *http.Request) {
-		ListeEtudiants := []Etudiant{{"gourrin", "dimitri", 17, true}, {"Xerli", "Chinois", 152, false}}
+		ListeEtudiants := []Etudiant{{"Gourrin", "Dimitri", 17, true}, {"Xerli", "Chinois", 152, false}}
 
-		PageData := PagePromo{"B1 Informatique", "Informatique", " Bachelor 1", 45, ListeEtudiants}
+		PageData := PagePromo{"B1 Informatique", "Informatique", " Bachelor 1", len(ListeEtudiants), ListeEtudiants}
 		temp.ExecuteTemplate(w, "Promo", PageData)
 
 	})
 	fileServer := http.FileServer(http.Dir("./challenge1/assets/"))
 	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
-	fileServerStyles := http.FileServer(http.Dir("./challenge1/styles"))
-	http.Handle("/styles/", http.StripPrefix("/styles/", fileServerStyles))
 	http.ListenAndServe("localhost:8000", nil)
 }

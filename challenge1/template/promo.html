@@ -4,22 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Promo</title>
 </head>
 <body>
     <div class="container">
-    <h1> {{.Classe}} </h1>
-    <h2> {{.Filliere}} </h2>
-    <h2> {{.Niveau}} </h2>
-    <h2> {{.NombreEtudiants}} </h2>
-    {{range .Etudiants}}
-    {{if .Sexe}}
-    <p>{{.Nom}} {{.Prenom}} {{.Age}} <img src="/static/Homme.png" alt="Sexe Homme"></p>
-    {{else}}
-    <p>{{.Nom}} {{.Prenom}} {{.Age}} <img src="/static/Femme.png" alt="Sexe Femme"></p>
-    {{end}}
-    {{end}}
+        <h1>{{.Classe}}</h1>
+        <h2>{{.Filliere}}</h2>
+        <h2>{{.Niveau}}</h2>
+        <h2>{{.NombreEtudiants}} étudiants</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Âge</th>
+                    <th>Sexe</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Etudiants}}
+                <tr>
+                    <td>{{.Nom}}</td>
+                    <td>{{.Prenom}}</td>
+                    <td>{{.Age}}</td>
+                    <td>
+                        {{if .Sexe}}
+                        <img src="/static/img/Homme.png" alt="Sexe Homme">
+                        {{else}}
+                        <img src="/static/img/Femme.png" alt="Sexe Femme">
+                        {{end}}
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

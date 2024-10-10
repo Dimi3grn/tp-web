@@ -4,12 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/static/formStyle.css">
+    <title>Form</title>
 </head>
 <body>
     <form action="/user/treatment" method="post">
         <label for="name">Nom</label>
-        <input type="text" name="nom" id ="name">
+        <input type="text" name="nom" id ="name" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères">
+        <label for="prenom">Prénom</label>
+        <input type="text" name="prenom" id ="prenom" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères">
+        <label for="bday">Date de naissance</label>
+        <input type="text" name="bday" id ="bday" required>
+        <label for="sexe">Sexe</label>
+        <input type="text" name="sexe" id ="sexe" title="masculin, feminin ou autre">
         <button type="submit">valider</button>
     </form>
 </body>
