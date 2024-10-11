@@ -10,15 +10,15 @@
 <body>
     <form action="/user/treatment" method="post">
         <label for="name">Nom</label>
-        <input type="text" name="nom" id ="name" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères">
+        <input type="text" name="nom" id ="name" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" required>
         <label for="prenom">Prénom</label>
-        <input type="text" name="prenom" id ="prenom" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères">
+        <input type="text" name="prenom" id ="prenom" title="uniquement composé de lettres, avec une taille entre 1 et 32 caractères" required>
         <label for="bday">Date de naissance</label>
         <input type="text" name="bday" id ="bday" required>
         <label for="sexe">Sexe</label>
-        <select name="sexe" id="sexe">
+        <select name="sexe" id="sexe" required>
             <option value="masculin">Masculin</option>
-            <option value="feminin">Féminin</option>
+            <option value="féminin">Féminin</option>
             <option value="autre">Autre</option>
         </select>
         <button type="submit">Valider</button>

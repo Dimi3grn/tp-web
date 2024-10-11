@@ -26,6 +26,7 @@ input[type="text"], select {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    
 }
 
 input[type="text"]:focus, select:focus {
@@ -56,4 +57,8 @@ select {
     background-position: right 10px center;
     background-size: 12px;
     padding-right: 30px; /* Espace pour la flèche */
+}
+
+input[type="text"]{
+    width: 95%;
 }
